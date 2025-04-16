@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Generador de Contraseñas Seguras</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>🛡️ Crea tu contraseña segura</h2>
+
+  <div class="contenedor">
+    <!-- Imagen de Steve -->
+    <img id="steve" src="steve.gif" alt="Steve el robot" onclick="reproducirAudio()">
+
+    <!-- Formulario -->
+    <div class="formulario">
+      <label>🐾 Mi animal favorito:</label>
+      <input type="text" id="animal">
+
+      <label>✨ Una palabra mágica:</label>
+      <input type="text" id="magia">
+
+      <label>🔢 Un número especial:</label>
+      <input type="number" id="numero">
+
+      <label>🔣 Un símbolo secreto:</label>
+      <input type="text" id="simbolo" maxlength="1">
+
+      <button onclick="generarContrasena()">Generar contraseña</button>
+      <button class="limpiar" onclick="limpiarFormulario()">Limpiar</button>
+
+      <div id="resultado">→ Contraseña: ______________________</div>
+    </div>
+  </div>
+
+  <!-- Audio educativo -->
+  <audio id="audioEducativo" src="audio.mp3"></audio>
+
+  <script>
+    function generarContrasena() {
+      const animal = document.getElementById("animal").value.trim();
+      const magia = document.getElementById("magia").value.trim();
+      const numero = document.getElementById("numero").value.trim();
+      const simbolo = document.getElementById("simbolo").value.trim();
+
+      if (animal && magia && numero && simbolo) {
+        let contrasena =
+          animal.charAt(0).toUpperCase() +
+          magia.toLowerCase() +
+          simbolo +
+          numero;
+
+        const extras = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+        while (contrasena.length < 8) {
+          const randomChar = extras.charAt(Math.floor(Math.random() * extras.length));
+          contrasena += randomChar;
+        }
+
+        document.getElementById("resultado").textContent = "→ Contraseña: " + contrasena;
+      } else {
+        document.getElementById("resultado").textContent = "→ Por favor completa todos los campos.";
+      }
+    }
+
+    function limpiarFormulario() {
+      document.getElementById("animal").value = "";
+      document.getElementById("magia").value = "";
+      document.getElementById("numero").value = "";
+      document.getElementById("simbolo").value = "";
+      document.getElementById("resultado").textContent = "→ Contraseña: ______________________";
+    }
+
+    function reproducirAudio() {
+      const audio = document.getElementById("audioEducativo");
+      audio.play();
+    }
+  </script>
+</body>
+</html>
